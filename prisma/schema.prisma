@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Pool {
+  id          Int     @id @default(autoincrement())
+  address     String  @unique
+  token0      String
+  token1      String
+  decimals0   Int     @default(18)
+  decimals1   Int     @default(18)
+  tickSpacing Int
+  feeTier     Int
+  name        String?
+
+  PoolData PoolData[]
+  SwapData SwapData[]
+
+  @@unique([token0, token1, feeTier])
+}
+
+model PoolData {
+  id          Int    @id @default(autoincrement())
+  blockNumber Int
+  poolAddress String
+  pool        Pool   @relation(fields: [poolAddress], references: [address])
+
+  tick                    Int
+  liquidity               String
+  token0Price             Float
+  token1Price             Float
+  // volume0/volume1 in v3-subgraph
+  culmulativeVolumeToken0 Float
+  culmulativeVolumeToken1 Float
+  // Instantaneous fee of this block for token0 & token1
+  feesToken0              Float
+  feesToken1              Float
+  TVLToken0               Float?
+  TVLToken1               Float?
+
+  ticksData TickData[]
+
+  @@unique([blockNumber, poolAddress])
+}
+
+model TickData {
+  id          Int      @id @default(autoincrement())
+  tickIdx     Int
+  poolAddress String
+  blockNumber Int
+  poolData    PoolData @relation(fields: [poolAddress, blockNumber], references: [poolAddress, blockNumber])
+
+  liquidityGross  String
+  liquidityNet    String
+  liquidityActive String
+
+  @@unique([tickIdx, blockNumber, poolAddress])
+}
+
+model SwapData {
+  id          Int    @id @default(autoincrement())
+  swapId      String @unique
+  pool        Pool   @relation(fields: [poolAddress], references: [address])
+  poolAddress String
+
+  blockNumber Int
+  amount0     Float
+  amount1     Float
+  tick        Int
+  gasETH      Float
+}
+
+model Block {
+  blockNumber Int    @id @default(autoincrement())
+  timeStamp   BigInt
+}

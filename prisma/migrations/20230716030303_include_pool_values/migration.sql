@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "PoolData" ADD COLUMN "TVLToken0" REAL;
+ALTER TABLE "PoolData" ADD COLUMN "TVLToken1" REAL;

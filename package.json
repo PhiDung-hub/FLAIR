@@ -1,0 +1,49 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --recursive",
+    "test:core": "mocha",
+    "test:helpers": "mocha test/helpers",
+    "run:USDC_WETH": "ts-node-esm src/scripts/FLAIR_Range/USDC_WETH.ts",
+    "run:USDC_WETH_bench": "ts-node-esm src/scripts/FLAIR_Range/USDC_WETH_benchmark.ts",
+    "run:LQTY_WETH": "ts-node-esm src/scripts/FLAIR_Range/LQTY_WETH.ts",
+    "run:LQTY_WETH_bench": "ts-node-esm src/scripts/FLAIR_Range/LQTY_WETH_benchmark.ts",
+    "clean:schema": "ts-node-esm src/scripts/clean.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "license": "ISC",
+  "engines": {
+    "node": "18.x"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.5",
+    "@types/cli-progress": "^3.11.0",
+    "@types/lodash.keyby": "^4.6.7",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^20.3.2",
+    "@types/yargs": "^17.0.24",
+    "chai": "^4.3.7",
+    "cli-progress": "^3.12.0",
+    "fast-csv": "^4.3.6",
+    "mocha": "^10.2.0",
+    "rimraf": "^5.0.1",
+    "typescript": "^5.1.5"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.16.2",
+    "decimal.js": "^10.4.3",
+    "dotenv": "^16.3.1",
+    "graphql": "^16.7.1",
+    "graphql-request": "^6.1.0",
+    "lodash.keyby": "^4.6.0",
+    "prisma": "^4.16.2",
+    "ts-node": "^10.9.1",
+    "viem": "^1.2.1",
+    "yargs": "^17.7.2"
+  }
+}
